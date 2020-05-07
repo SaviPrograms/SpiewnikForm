@@ -1,0 +1,112 @@
+:root {
+    --main-color: dodgerblue;
+    --font-color: white;
+}
+
+body {
+    max-width: 850px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.46);
+    margin: auto;
+    font-family: Roboto;
+}
+
+body > * {
+    padding: 1em;
+}
+
+header {
+    background-color: var(--main-color);
+    color: var(--font-color)
+}
+
+h1 {
+    margin: 0;
+}
+
+#ranking {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: auto;
+}
+
+#ranking > div {
+    display: flex;
+    width: 100%;
+    margin: 0.1em auto;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+#ranking span {
+    flex: 1;
+}
+
+#ranking i,
+#ranking span {
+    display: block;
+    margin: auto 0.5em;
+}
+
+#ranking i {
+    flex: initial;
+}
+
+.question {
+    display: block;
+    font-size: 1.1em;
+    font-weight: ;
+    margin: 0.7em auto 0.4em auto;
+}
+
+select,
+input {
+    padding: 1%;
+    margin: 1%;
+    font-family: roboto;
+}
+
+select {
+    width: 70%;
+}
+
+option {
+    font-family: inherit;
+    font-weight: normal;
+}
+
+optgroup {
+    font-family: 'Roboto';
+    font-weight: normal;
+    font-style: normal;
+}
+
+form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+@media (min-width: calc(250 * 2px)) {
+    form {
+        grid-template-columns: repeat(2, minmax(250px, 1fr));
+    }
+}
+
+input[type="number"] {
+    border: none;
+    font-family: inherit;
+
+}
+
+input[type="submit"] {
+    background-color: var(--main-color);
+    color: var(--font-color);
+    border: none;
+    padding-top: .5em;
+    padding-bottom: .5em;
+    margin: 1em;
+    grid-column: span 1 / -1;
+}
+
+input::-webkit-inner-spin-button {
+    display: none;
+}

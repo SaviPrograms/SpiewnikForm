@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Formularz - Śpiewnik szczepu</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-
+    scale=1.0, minimum-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+    </style>
+
+</head>
+
+<body>
+    <header>
+        <h1>Formularz piosenek do śpiewnika</h1>
+        <p>
+            Cześć, oto pierwsze podejście do tworzenia nowego śpiewnika, czyli rzeczy koniecznej, bo datychczasowy "czarny śpiewnik" jest już przestarzały.
+        </p>
+    </header>
+    <form>
+        <div style="min-width: 200px">
+            <span class="question">Wybierz swoją jednostkę:</span>
+            <select>
+                <optgroup label="Zuchy">
+                    <option value="volvo">Brykające Tygryski</option>
+                    <option value="saab">Radosne Pszczółki</option>
+                </optgroup>
+                <optgroup label="Harcerze">
+                    <option value="mercedes">4ŁDH</option>
+                    <option value="audi">7ŁDH</option>
+                    <option value="audi">45ŁDH</option>
+                    <option value="audi">48ŁDH</option>
+                </optgroup>
+                <option value="audi">47ŁDH</option>
+                <optgroup label="Kadra">
+                    <option value="mercedes">Rada drużyny</option>
+                    <option value="audi">Rada szczepu</option>
+                </optgroup>
+            </select>
+        </div>
+        <div style="min-width: 200px">
+            <span class="question">Wybierz swoją funkcję:</span>
+            <select>
+                <option value="" selected>Bez funkcji</option>
+                <option value="">Podzastępowy</option>
+                <option value="">Zastępowy</option>
+                <option value="">Przyboczny</option>
+                <option value="">Drużynowy</option>
+            </select>
+        </div>
+        <div style="grid-column: 1/-1">
+            <span class="question">Wybierz piosenki, według tego, jak bardzo chcesz, aby pojawiły się w śpiewniku:</span>
+            <div id="ranking">
+                <div>
+                    <i class="material-icons">reorder</i>
+                    <input type="number" min="1" max="999">
+                    <span>Tytuł</span>
+                    <i class="material-icons">expand_less</i>
+                    <i class="material-icons">expand_more</i>
+                </div>
+                <div>
+                    <i class="material-icons">reorder</i>
+                    <input type="number" min="1" max="999">
+                    <span>Tytuł</span>
+                    <i class="material-icons">expand_less</i>
+                    <i class="material-icons">expand_more</i>
+                </div>
+            </div>
+        </div>
+        <input type="submit">
+    </form>
+</body></html>
