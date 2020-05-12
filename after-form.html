@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Odpowiedź przesłana</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="logoSzczepu.svg">
+    <script src="https://spiewnik-f3be.restdb.io/rest/_jsapi.js?plainjs=true"></script>
+    <script src="database.js"></script>
+    <script src="wyniki.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Odpowiedź przesłana</h1>
+        Twoja odpowiedź została przesłana
+    </header>
+    <p>
+        Dziękujemy za przesłanie odpowiedzi. Jeżeli chcesz zobaczyć aktualne wyniki kliknij przycisk poniżej.
+    </p>
+    <button onclick="start()">Pokaż wyniki</button>
+    <div id="data">
+        <div class="char-container" style="position: relative">
+            <canvas id="chart1"></canvas>
+        </div>
+    </div>
+</body></html>

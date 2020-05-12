@@ -1,6 +1,71 @@
-:root {
-    --main-color: dodgerblue;
-    --font-color: white;
+@media (prefers-color-scheme:dark) {
+    :root {
+        --color-background: rgb(33, 33, 33);
+        --color-text: rgb(255, 255, 255);
+        --color-primary: linear-gradient(to right top, #ee0979, #ff6a00) fixed;
+        --color-primary-text: white;
+    }
+}
+
+@media (prefers-color-scheme:light) {
+    :root {
+        --color-background: rgb(244, 244, 244);
+        --color-text: rgb(23, 23, 23);
+        --color-primary: linear-gradient(to left bottom, #56ccf2, #25bbf5, #00a9f6, #0096f4, #2f80ed) fixed;
+        --color-primary-text: white;
+    }
+}
+
+#curtine {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-background);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    animation: 2s fade 1s paused forwards;
+}
+
+#curtine img {
+    width: 50vmin;
+}
+
+#curtine > span::after {
+    content: '...';
+    animation: dots 4s linear infinite;
+}
+
+@keyframes dots {
+    0% {
+        content: ''
+    }
+
+    25% {
+        content: '.'
+    }
+
+    75% {
+        content: '..'
+    }
+
+    100% {
+        content: '...'
+    }
+}
+
+@keyframes fade {
+    0% {
+        opacity: 100%
+    }
+
+    100% {
+        opacity: 0%
+    }
 }
 
 body {
@@ -8,19 +73,23 @@ body {
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.46);
     margin: auto;
     font-family: Roboto;
+    background: var(--color-background);
+    color: var(--color-text);
 }
 
 body > * {
     padding: 1em;
+    font-weight: 100
 }
 
 header {
-    background-color: var(--main-color);
-    color: var(--font-color)
+    background: var(--color-primary);
+    color: var(--color-primary-text);
 }
 
 h1 {
     margin: 0;
+    font-weight: bolder;
 }
 
 #ranking {
@@ -37,7 +106,8 @@ h1 {
     background-color: rgba(0, 0, 0, 0.05);
 }
 
-#ranking span {
+#ranking span,
+#ranking input[type="text"] {
     flex: 1;
 }
 
@@ -63,6 +133,9 @@ input {
     padding: 1%;
     margin: 1%;
     font-family: roboto;
+    background: var(--color-background);
+    color: var(--color-text);
+    border: var(--color-text) solid 1px;
 }
 
 select {
@@ -94,12 +167,12 @@ form {
 input[type="number"] {
     border: none;
     font-family: inherit;
-
+    text-align: center;
 }
 
-input[type="submit"] {
-    background-color: var(--main-color);
-    color: var(--font-color);
+input[type="submit"],button {
+    background: var(--color-primary);
+    color: var(--color-primary-text);
     border: none;
     padding-top: .5em;
     padding-bottom: .5em;
@@ -109,4 +182,31 @@ input[type="submit"] {
 
 input::-webkit-inner-spin-button {
     display: none;
+}
+
+noscript {
+    background-color: red;
+
+    /* Create the gradient. */
+    background: var(--color-primary);
+
+    background-attachment: local;
+    /* Set the background size and repeat properties. */
+    background-size: 100%;
+    background-repeat: repeat;
+
+    /* Use the text as a mask for the background. */
+    /* This will show the gradient as a text color rather than element bg. */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+    margin-top: 2em;
+    font-size: 0.5em;
+    
+}
+
+#data{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
 }
