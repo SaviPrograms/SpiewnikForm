@@ -10,32 +10,35 @@
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?ver=2">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-
     scale=5.0, minimum-scale=1.0">
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
+
     <link rel="shortcut icon" type="image/x-icon" href="logoSzczepu.svg">
-    
+
     <style>
         * {
             box-sizing: border-box;
         }
+
     </style>
 
     <script src="https://spiewnik-f3be.restdb.io/rest/_jsapi.js?plainjs=true"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
     <script src="database.js"></script>
     <script src="script.js"></script>
 </head>
 
 <body onload="menager()">
-   <div id="curtine">
-       <img src="logoSzczepu.svg" width="250">
-       <span>Proszę czekać</span>
-       <noscript>Ta strona wykorzystuje JavaScript'a, który obecnie nie jest obsługiwany przez twoją przeglądarkę. <br> Spróbuj zmienić ustawienia, lub przeglądarkę.</noscript>
-   </div>
+    <div id="curtine">
+        <img src="logoSzczepu.svg" width="250">
+        <span>Proszę czekać</span>
+        <noscript>Ta strona wykorzystuje JavaScript'a, który obecnie nie jest obsługiwany przez twoją przeglądarkę. <br> Spróbuj zmienić ustawienia, lub przeglądarkę.</noscript>
+    </div>
     <header>
         <h1>Formularz piosenek do śpiewnika</h1>
         <p>
@@ -76,7 +79,7 @@
         <div style="grid-column: 1/-1">
             <span class="question">Wybierz piosenki, według tego, jak bardzo chcesz, aby pojawiły się w śpiewniku:</span>
             <div id="ranking">
-                <!--<div>
+                <!--<div class="draggable">
                     <i class="material-icons">reorder</i>
                     <input type="number" min="1" max="999" value="1">
                     <span>Nazwa</span>
@@ -90,7 +93,7 @@
                     <i class="material-icons">expand_less</i>
                     <i class="material-icons">expand_more</i>
                 </div>-->
-                
+
                 <!--<div id="input">
                     <i class="material-icons" onclick="addSong()">add</i>
                     <input type="number" min="1" max="999">
@@ -100,4 +103,6 @@
         </div>
         <input type="submit">
     </form>
-</body></html>
+</body>
+
+</html>

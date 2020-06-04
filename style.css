@@ -29,6 +29,7 @@
     align-items: center;
     font-size: 1.5em;
     animation: 2s fade 1s paused forwards;
+    z-index: 100;
 }
 
 #curtine img {
@@ -87,9 +88,13 @@ header {
     color: var(--color-primary-text);
 }
 
-h1 {
+h1{
     margin: 0;
     font-weight: bolder;
+}
+
+h2{
+    font-weight: 300;
 }
 
 #ranking {
@@ -102,8 +107,10 @@ h1 {
 #ranking > div {
     display: flex;
     width: 100%;
+    min-height: 3em;
     margin: 0.1em auto;
     background-color: rgba(0, 0, 0, 0.05);
+    position: relative;
 }
 
 #ranking span,
@@ -209,4 +216,5 @@ noscript {
 #data{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+    
 }

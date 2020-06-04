@@ -1,3 +1,4 @@
+/*
 
 
 //TODO: Zmienić na klase
@@ -161,4 +162,20 @@ const db = {
             return response.json()
         }
     }
+}
+*/
+firebase.initializeApp({
+    apiKey: "AIzaSyDFrOW1Xp9Oc9S-gNThrc4jUZwUqpBw7u4",
+    authDomain: "spiewnik-e2282.firebaseapp.com",
+    databaseURL: "https://spiewnik-e2282.firebaseio.com",
+    projectId: "spiewnik-e2282",
+    storageBucket: "spiewnik-e2282.appspot.com",
+    messagingSenderId: "766835940071",
+    appId: "1:766835940071:web:960c399ceaf8d039842042",
+    measurementId: "G-15S0WW8DQ5"
+});
+const database = firebase.firestore();
+const db = {
+    songs: database.collection('songs'),
+    answers: database.collection('answers')
 }

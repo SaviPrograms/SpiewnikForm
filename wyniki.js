@@ -1,99 +1,196 @@
-let ctx;
-let data={};
-let chart;
-let gradient;
-async function start(){
-    let canvas = document.getElementById('chart1');
-    ctx = canvas.getContext('2d');
-    gradient = ctx.createLinearGradient(0,canvas.height, canvas.width,0);
-    gradient.addColorStop(0,'#ee0979');
-    gradient.addColorStop(1,'#ff6a00');
-    
-    await getData();
-    show();
-}
+console.log(
+    "%cCześć, czuwaj, a może H3110",
+    "color: green; font-size: 2em"
+)
+console.log(
+    `%cOj ty hakerku!!!%c
+Skoro tu jesteś, to znaczy, że interesujesz się programowaniem/tworzeniem stron?
+Ja tak, dlatego, wiedząc, że ktoś inny też może się tym zaciekawić przygotowałem dla Ciebie opis wszystkiego co zrobiłem.
+Miłego przeglądania 😉
+%c-Seweryn`, "text-decoration: line-through","", "color:gray"
+)
 
-async function getData(){
-    data = {
-        labels: (await db.songs.getAll()).map(x=>x.title),
-        datasets:[
+let DOMElements = {};
+let data = {
+    titles: [],
+    answers: [],
+    dates: new Map()
+};
+let gradient;
+let codeElements = {};
+
+getData();
+
+addEventListener("DOMContentLoaded", (event) => {
+    DOMElements.dataplace = document.getElementById('data');
+    DOMElements.canvases = document.getElementsByTagName('canvas');
+})
+
+addEventListener('load', (event) => {
+    let ctxes = [
+        DOMElements.canvases[0].getContext('2d'),
+        DOMElements.canvases[1].getContext('2d'),
+        DOMElements.canvases[2].getContext('2d')
+    ]
+    gradient = ctxes[2].createLinearGradient(0, 200, 200, 0);
+    gradient.addColorStop(0, '#ee0979');
+    gradient.addColorStop(1, '#ff6a00');
+
+    codeElements.charts = [
+        new Chart(ctxes[0], {
+            type: 'bar',
+            options: {
+                responsive:true,
+                scales: {
+                    xAxes: [{
+                        stacked: true
+            }],
+                    yAxes: [{
+                        stacked: true
+            }]
+                }
+            }
+        }),
+        new Chart(ctxes[1], {
+            type: 'bar',
+            options: {
+                responsive:true,
+                scales: {
+                    xAxes: [{
+                        stacked: true
+            }],
+                    yAxes: [{
+                        stacked: true
+            }]
+                }
+            }
+        })
+    ]
+})
+
+addEventListener('loaded', (event) => {
+    codeElements.charts[0].data = {
+        labels: data.titles,
+        datasets: [
             {
-                label:'Harcerze',
-                backgroundColor:'green',
-                data:[]
-            },
-             {
-                label:'zuchy',
-                backgroundColor:'yellow',
-                data:[]
+                label: 'Radosne pszczółki',
+                data: getSongsByTeam('zrp'),
+                backgroundColor: '#ffc107'
             },
             {
-                label:'Wędrownicy',
-                backgroundColor:'red',
-                data:[]
+                label: 'Brykające tygryski',
+                data: getSongsByTeam('zbt'),
+                backgroundColor: '#ff5722'
             },
             {
-                label:'Rada szczepu',
-                backgroundColor:'purple',
-                data:[]
+                label: '4ŁDH',
+                data: getSongsByTeam('4ldh'),
+                backgroundColor: '#e91e63'
+            },
+            {
+                label: '7ŁDH',
+                data: getSongsByTeam('7ldh'),
+                backgroundColor: '#673ab7'
+            },
+            {
+                label: '45ŁDH',
+                data: getSongsByTeam('45ldh'),
+                backgroundColor: '#2196f3'
+            }, {
+                label: '48ŁDH',
+                data: getSongsByTeam('48ldh'),
+                backgroundColor: '#00bcd4'
+            },
+            {
+                label: '47ŁWDH',
+                data: getSongsByTeam('47lwdh'),
+                backgroundColor: '#009688'
+            },
+            {
+                label: 'Rada szczepu',
+                data: getSongsByTeam('rs'),
+                backgroundColor: '#4caf50'
             },
         ]
-    };
-    data.datasets[0].data=await funkcja({$or:[{team:'4ldh'},{team:'7ldh'},{team:'45ldh'},{team:'48ldh'}]});
-    data.datasets[1].data=await funkcja({$or:[{team:'zbt'},{team:'zrp'}]});
-    data.datasets[2].data=await funkcja({team:'47ldh'});
-    data.datasets[3].data=await funkcja({team:'rs'});
-}
+    }
+    codeElements.charts[1].data = {
+        labels: data.titles,
+        datasets: [
+            {
+                label: 'Bez funkcji',
+                data: getSongsByFunction('bf'),
+                backgroundColor: '#607d8b'
+            },
+            {
+                label: 'Podzastępowy',
+                data: getSongsByFunction('pz'),
+                backgroundColor: '#795548'
+            },
+            {
+                label: 'Zastępowy',
+                data: getSongsByFunction('z'),
+                backgroundColor: '#4e342e'
+            },
+            {
+                label: 'Przyboczny',
+                data: getSongsByFunction('pr'),
+                backgroundColor: '#4caf50'
+            },
+            {
+                label: 'Drużynowy',
+                data: getSongsByFunction('d'),
+                backgroundColor: '#3f51b5'
+            },
+            {
+                label: 'Rada drużyny/szczepu',
+                data: getSongsByFunction('r'),
+                backgroundColor: '#00bcd4'
+            },
+        ]
+    }
+    codeElements.charts[0].update();
+    codeElements.charts[1].update();
+})
 
-function show(){
-    chart = new Chart(ctx, {
-    type: 'bar',
-    data: data,
-    options: {
-        scales: {
-            xAxes:[{
-                stacked:true
-            }],
-            yAxes: [{
-                stacked: true,
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
+async function getData() {
+    data.titles = (await db.songs.orderBy("date", "asc").get()).docs.map(x => x.data().title)
+    let odpowiedzi = (await db.answers.get()).docs.map(x => x.data());
+
+    for ([i, x] of odpowiedzi.entries()) {
+        for (song of x.songs) {
+            data.answers.push({
+                team: x.team,
+                func: x.func,
+                title: song.title,
+                pos: x.songs.indexOf(song),
+            });
         }
     }
-});
+    dispatchEvent(new Event("loaded"));
 }
 
-window.onbeforeprint= function (e) {
-    for (var id in Chart.instances) {
-        Chart.instances[id].resize();
-    }
-}
-
-async function funkcja(filter = {}){
-    let tab = [];
-    labels = await db.songs.getAll();
-    for(x of labels){
+function getSongsByTeam(team) {
+    let arr = [];
+    for ([i, x] of data.titles.entries()) {
         let suma = 0;
-        let query = await db.answers.find({$and:[{from_id:x},filter]});
-        for(y of query){
-            suma+=y.position;
+        for ([j, y] of data.answers.filter(z => z.team == team && z.title == x).entries()) {
+            suma += y.pos + 1;
+
         }
-        tab.push(1/suma);
+        arr[i] = suma / (data.answers.filter(z => z.title == x).length);
     }
-    return tab;
-    
-   /* let tab = [];
-    labels.forEach(
-        x=>{
-            let suma = 0;
-            
-            for(y in (await db.answers.find({title:x, $or:[{team:'4ldh'},{team:'7ldh'},{team:'45ldh'},{team:'48ldh'}]}))){
-                suma+=y.position;
-            }
-            tab.push(suma);
+    return arr
+}
+
+function getSongsByFunction(func) {
+    let arr = [];
+    for ([i, x] of data.titles.entries()) {
+        let suma = 0;
+        for ([j, y] of data.answers.filter(z => z.func == func && z.title == x).entries()) {
+            suma += y.pos + 1;
+
         }
-    )
-    return tab*/
+        arr[i] = suma / (data.answers.filter(z => z.title == x).length);
+    }
+    return arr
 }

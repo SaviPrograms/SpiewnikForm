@@ -4,13 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Odpowiedź przesłana</title>
+     <meta name="Description" content="Formularz dotyczący rajdu z piosenką">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-
+    scale=5.0, minimum-scale=1.0">
+    
+    <!--Wygląd-->
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="logoSzczepu.svg">
-    <script src="https://spiewnik-f3be.restdb.io/rest/_jsapi.js?plainjs=true"></script>
+    
+    <!--restdb.io baza danych-->
+    <!--<script src="https://spiewnik-f3be.restdb.io/rest/_jsapi.js?plainjs=true"></script>-->
+    
+    <!--chart.js wykresy-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+    
+    
+    <!--Firebase-->
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
+    
+    <!--Własne skrypty-->
     <script src="database.js"></script>
     <script src="wyniki.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -21,10 +39,16 @@
     <p>
         Dziękujemy za przesłanie odpowiedzi. Jeżeli chcesz zobaczyć aktualne wyniki kliknij przycisk poniżej.
     </p>
-    <button onclick="start()">Pokaż wyniki</button>
     <div id="data">
         <div class="char-container" style="position: relative">
-            <canvas id="chart1"></canvas>
+           <h2>Piosenki wedłóg drużyny</h2>
+            <canvas></canvas>
+            <h2>Piosenki wedłóg funkcji</h2>
+            <canvas></canvas>
+            <!--<h2>Udzielone odpowiedzi</h2>-->
+            <canvas></canvas>
         </div>
     </div>
-</body></html>
+</body>
+
+</html>
