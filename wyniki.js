@@ -102,14 +102,19 @@ addEventListener('loaded', (event) => {
                 backgroundColor: '#00bcd4'
             },
             {
-                label: '47ŁWDH',
+                label: '47ŁWDW',
                 data: getSongsByTeam('47lwdh'),
                 backgroundColor: '#009688'
             },
             {
+                label: 'K14S',
+                data: getSongsByTeam('k14s'),
+                backgroundColor: '#4caf50'
+            },
+            {
                 label: 'Rada szczepu',
                 data: getSongsByTeam('rs'),
-                backgroundColor: '#4caf50'
+                backgroundColor: '#7daf4c'
             },
         ]
     }

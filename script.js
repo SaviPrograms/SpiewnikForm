@@ -10,6 +10,8 @@ Miłego przeglądania 😉
 %c-Seweryn`, "text-decoration: line-through", "", "color:gray"
 )
 
+let iteration = 0;
+
 //Przechowuje wszystkie wykorzystywane elementy DOM-u
 let DOMElements = {};
 //Przechowuje wszystkie dane stałe, bądź rzadkozmienne
@@ -69,12 +71,14 @@ async function load() {
     })
 
     //Wszystkie elementy możliwe do przesunięcia
-    DOMElements.draggables = document.getElementsByClassName('draggable');
+    DOMElements.draggables = document.querySelectorAll('.draggable');
 
     //Ustawienie ich działania
     for (x of DOMElements.draggables) {
         dragElement(x); //TODO:Dodać id piosenki
     }
+
+
 }
 
 //Uruchamia się, gdy strona jest gotowa do prezentacji
@@ -87,8 +91,8 @@ function start() {
 function updateSongList() {
     let tekst = '';
     for (let [i, x] of data.songList.current.entries()) {
-        tekst+=`
-                <div class="draggable" data-id=${data.songList.fromDB.indexOf(x)} data-title=${x.title}>
+        tekst += `
+                <div class="draggable">
                     <i class="material-icons">reorder</i>
                     <input type="number" min="1" max="999" value="${i+1}" onchange="setSongPos(${i}, this.value-1)">
                     <span>${x.title}</span>
@@ -104,6 +108,7 @@ function updateSongList() {
                     <input type="text" ">
                 </div>`;
     DOMElements.ranking.innerHTML = tekst;
+    iteration++;
 }
 
 //Dodaje nową piosenkę do obszaru roboczego
@@ -180,13 +185,10 @@ function dragElement(elmnt) {
         oldPos.x = e.clientX != undefined ? e.clientX : e.changedTouches[0].clientX;
         oldPos.y = e.clientY != undefined ? e.clientY : e.changedTouches[0].clientY;
         height = elmnt.clientHeight;
-        
-        console.log(`Reading data for:`);
-        console.log(elmnt)
-        data.songList.ghost.data = data.songList.current[elmnt.dataset.id];
-        data.songList.ghost.data.id = elmnt.dataset.id;
-        data.songList.ghost.data.before_id = elmnt.querySelector("input[type=number]").value-1;
-        
+        data.songList.ghost.data = data.songList.current[elmnt.querySelector("input[type=number]").value - 1];
+        data.songList.ghost.data.id = elmnt.querySelector("input[type=number]").value - 1;
+        data.songList.ghost.data.iteration = elmnt.dataset.iteration;
+
         document.onmouseup = closeDragElement;
         document.ontouchend = closeDragElement;
         elmnt.style.zIndex = 100;
@@ -201,21 +203,20 @@ function dragElement(elmnt) {
         e.preventDefault();
         newPos.x = e.clientX != undefined ? e.clientX : e.changedTouches[0].clientX;
         newPos.y = e.clientY != undefined ? e.clientY : e.changedTouches[0].clientY;
-        
+
         // set the element's new position:
         elmnt.style.bottom = oldPos.y - newPos.y + "px";
-        
+
         //Set ghost new position:
-        data.songList.ghost.pos = Math.round((newPos.y - DOMElements.ranking.getBoundingClientRect().top) / height + 0);
-        if(data.songList.ghost.pos<0)data.songList.ghost.pos=0;
+        data.songList.ghost.pos = Math.round((newPos.y - DOMElements.ranking.getBoundingClientRect().top) / height - 1);
+        if (data.songList.ghost.pos < 0) data.songList.ghost.pos = 0;
+        if (data.songList.ghost.pos >= data.songList.current.length) data.songList.ghost.pos = data.songList.current.length - 1;
         updateGhost()
         //elmnt.style.right = oldPos.x-newPos.x + "px";
     }
 
     function closeDragElement() {
         elmnt.style.zIndex = 0;
-        console.groupEnd()
-        console.log("Drag end")
         /* stop moving when mouse button is released:*/
         document.onmouseup = null;
         document.ontouchend = null;
@@ -226,11 +227,12 @@ function dragElement(elmnt) {
 }
 
 function updateGhost() {
-    let divs = DOMElements.ranking.getElementsByTagName('div');
-    
-    if(DOMElements.ghost)DOMElements.ghost.remove();
+    let divs = '';
+    divs = DOMElements.ranking.querySelectorAll('div:not([class=ghost])');
+
+    if (DOMElements.ghost) DOMElements.ghost.remove();
     for (i in divs) {
-        if (i == data.songList.ghost.pos && i!=data.songList.ghost.data.before_id && i != data.songList.ghost.data.before_id+1) {
+        if (((i < data.songList.ghost.data.id && i == data.songList.ghost.pos) || (i > data.songList.ghost.data.id && i == data.songList.ghost.pos + 1))&&data.songList.ghost.pos!=data.songList.ghost.data.id) {
             DOMElements.ghost = DOMElements.ranking.insertBefore(new DOMParser()
                 .parseFromString(`<div class="ghost">
                     <i class="material-icons">reorder</i>

@@ -218,3 +218,20 @@ noscript {
     grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
     
 }
+
+.ghost{
+    filter: blur(1px) opacity(54%);
+    background: var(--color-primary);
+    color: var(--color-primary-text);
+}
+
+footer{
+    /*text-align: right;*/
+    font-size: .7em;
+    font-weight: 300;
+    filter: opacity(.5);
+}
+
+footer a{
+    color: inherit;
+}
