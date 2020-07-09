@@ -187,7 +187,7 @@ function dragElement(elmnt) {
         height = elmnt.clientHeight;
         data.songList.ghost.data = data.songList.current[elmnt.querySelector("input[type=number]").value - 1];
         data.songList.ghost.data.id = elmnt.querySelector("input[type=number]").value - 1;
-        data.songList.ghost.data.iteration = elmnt.dataset.iteration;
+        
 
         document.onmouseup = closeDragElement;
         document.ontouchend = closeDragElement;
