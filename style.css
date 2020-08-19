@@ -1,12 +1,20 @@
+:root {
+    --color-background: rgb(244, 244, 244);
+    --color-text: rgb(23, 23, 23);
+    --color-primary: linear-gradient(to left bottom, #56ccf2, #25bbf5, #00a9f6, #0096f4, #2f80ed) fixed;
+    --color-accent: #25bbf5;
+    --color-primary-text: white;
+}
+
 @media (prefers-color-scheme:dark) {
     :root {
         --color-background: rgb(33, 33, 33);
         --color-text: rgb(255, 255, 255);
         --color-primary: linear-gradient(to right top, #ee0979, #ff6a00) fixed;
+        --color-accent: #f94a28;
         --color-primary-text: white;
     }
 }
-
 @media (prefers-color-scheme:light) {
     :root {
         --color-background: rgb(244, 244, 244);
@@ -61,11 +69,11 @@
 
 @keyframes fade {
     0% {
-        opacity: 100%
+        opacity: 1.0
     }
 
     100% {
-        opacity: 0%
+        opacity: 0.0
     }
 }
 
@@ -131,7 +139,6 @@ h2{
 .question {
     display: block;
     font-size: 1.1em;
-    font-weight: ;
     margin: 0.7em auto 0.4em auto;
 }
 
@@ -152,12 +159,14 @@ select {
 option {
     font-family: inherit;
     font-weight: normal;
+    background: var(--color-background);
 }
 
-optgroup {
+optgroup, optgroup:before{
     font-family: 'Roboto';
     font-weight: normal;
     font-style: normal;
+    background: var(--color-accent);
 }
 
 form {
